@@ -301,3 +301,22 @@ What Claude did with this prompt:
   4. Utilities, online orders, and income statements, each mapped to the existing tools, with honest notes: shipping needs an inventory-decrement tool, and income statements need revenue data.
   5. Returns, taxes, and payroll, each with the new tools and the new agent it would need, keeping the rule that only a human moves money.
 - Checked the page in headless Chrome and fixed a style bug where bold labels in the Q5 cards rendered oversized.
+
+## Prompt 16: Submission through GitHub
+
+> finally... lets finish this assignment.. we will submit it thorugh githubv
+
+I attached the expected file layout and the instruction to push to a **public** GitHub repo and put the link in `output/github_url.txt`. When Claude asked for the repo name, I picked **hw5**.
+
+What Claude did with this prompt:
+- Matched the expected layout:
+  - renamed `AI_PROMPT.md` → `AI_prompts.md`;
+  - added a project `.mcp.json` with relative paths;
+  - expanded `.gitignore` (`.env`, `.venv`, `node_modules`, `dist`);
+  - removed a stale Problem 5 log and the unused Vite boilerplate;
+  - replaced `frontend/README.md`.
+- Rewrote the README run steps in the assignment's order: copy the original DB to the working copy → start the MCP server → start the FastAPI backend → start the React board → reset the DB before a full run.
+- Scanned the staged files for secrets. The only match was the placeholder in `.env.example`.
+- Committed 64 files (2.8 MB) and created the **public** repo `renancordeiro08-collab/hw5` with `gh`.
+- Cloned it fresh and confirmed all 26 files from the expected layout are present, with no `.env`.
+- **Repository:** https://github.com/renancordeiro08-collab/hw5 (also in `output/github_url.txt`)
