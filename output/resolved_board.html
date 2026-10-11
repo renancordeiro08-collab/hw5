@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resolved Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0620; --bg2: #170b3b; --panel: rgba(21, 11, 54, 0.82); --line: rgba(34, 230, 255, 0.22);
+    --ink: #f4eeff; --muted: #b3a5d9; --cyan: #22e6ff; --pink: #ff3ea5; --sun: #ffb347; --mint: #3cf2a5; --warn: #ffcf5a; --bad: #ff5d7a;
+    --sans: "Space Grotesk", system-ui, -apple-system, Segoe UI, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0; color: var(--ink); font: 15px/1.6 var(--sans); min-height: 100vh;
+    background: radial-gradient(1100px 520px at 88% -12%, rgba(255, 62, 165, .26), transparent 60%),
+                radial-gradient(900px 480px at -8% 4%, rgba(34, 230, 255, .16), transparent 60%),
+                linear-gradient(180deg, var(--bg2), var(--bg) 60%);
+    background-attachment: fixed;
+  }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 28px 16px 70px; }
+  h1 {
+    margin: 0; font: 400 clamp(28px, 5.5vw, 50px)/1.05 "Monoton", var(--sans); letter-spacing: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--pink) 60%, var(--sun)); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 14px rgba(255, 62, 165, .35));
+  }
+  .sub { color: var(--muted); margin: 8px 0 0; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 22px 0 6px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+  .stat b { display: block; font-size: 24px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--muted); font-size: 12px; }
+  .stat.cash b { color: var(--cyan); text-shadow: 0 0 14px rgba(34, 230, 255, .45); }
+  .stat.ok b { color: var(--mint); }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+  nav a {
+    font: 600 13px var(--mono); color: var(--cyan); text-decoration: none; padding: 8px 12px; border-radius: 99px;
+    border: 1px solid var(--line); background: rgba(34, 230, 255, .06);
+  }
+  nav a:hover, nav a:focus-visible { border-color: var(--pink); color: var(--ink); outline: none; }
+  section.ticket { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 20px; margin-top: 26px; scroll-margin-top: 16px; }
+  .head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; align-items: start; }
+  .eyebrow { margin: 0; font: 600 11px var(--mono); letter-spacing: 2px; text-transform: uppercase; color: var(--pink); }
+  h2 { margin: 4px 0 0; font-size: clamp(20px, 3vw, 26px); }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font: 700 10px/1 var(--mono); letter-spacing: .6px; text-transform: uppercase; padding: 6px 9px; border-radius: 99px; border: 1px solid currentColor; white-space: nowrap; }
+  .p-res { color: var(--mint); } .p-await { color: var(--warn); } .p-block { color: var(--bad); } .p-info { color: var(--cyan); }
+  .outcome { margin: 12px 0; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; margin: 12px 0 16px; }
+  .fact { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: rgba(11, 6, 32, .5); font-size: 13px; }
+  .fact h4 { margin: 0 0 4px; font: 700 11px var(--mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--cyan); }
+  .fact p { margin: 0; }
+  code { font: 12px var(--mono); color: var(--sun); background: rgba(255, 179, 71, .1); padding: 1px 5px; border-radius: 5px; }
+  figure { margin: 0; }
+  .shot {
+    display: block; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 62, 165, .45);
+    box-shadow: 0 0 30px rgba(255, 62, 165, .18); max-height: 720px; overflow-y: auto; background: #0b0620;
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  figcaption { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  figcaption a { color: var(--cyan); }
+  footer { margin-top: 30px; color: var(--muted); font-size: 12px; text-align: center; }
+  @media (max-width: 600px) { section.ticket { padding: 14px; } .shot { max-height: 520px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Resolved Board</h1>
+  <p class="sub">Campus Customs Multi-Agent Operations · official run after a database reset · desk date 2026-08-31 · <code>gpt-6-luna</code></p>
+
+  <div class="stats">
+    <div class="stat ok"><b>3 / 3</b><span>tickets resolved</span></div>
+    <div class="stat cash"><b>$3,400 → $160</b><span>checking, never negative</span></div>
+    <div class="stat"><b>2</b><span>payments, both approved by Augusto</span></div>
+    <div class="stat"><b>13</b><span>delegations · 56 model calls</span></div>
+    <div class="stat"><b>3</b><span>drafts on the board, none sent</span></div>
+  </div>
+
+  <nav aria-label="Jump to ticket">
+    <a href="#t101">#101 Bulldog tee</a>
+    <a href="#t102">#102 Rent due</a>
+    <a href="#t103">#103 Bulk hoodie discount</a>
+  </nav>
+
+  <section class="ticket" id="t101">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Customer order · Tauhid Zaman</p>
+        <h2>#101 · Bulldog tee, size S</h2>
+      </div>
+      <div class="pills"><span class="pill p-await">Boss: awaiting approval</span><span class="pill p-res">Resolved</span></div>
+    </div>
+    <p class="outcome">Size S was sold out, and the reprint vendor was blocked by overdue invoice 501. Accounting filed the <b>$840</b> payment, Augusto approved it, invoice 501 is paid, and the vendor is unblocked. Tauhid has a draft offering M/L/XL now, or S around 09-05.</p>
+    <div class="facts">
+      <div class="fact"><h4>Agents</h4><p>Boss → Inventory → Accounting · Boss → Accounting · Boss → Customer Service</p></div>
+      <div class="fact"><h4>Key tools</h4><p><code>check_stock_and_pricing</code> <code>check_vendor_and_invoices</code> <code>request_payment_approval</code> <code>save_customer_draft</code></p></div>
+      <div class="fact"><h4>Human approval</h4><p>Request #1 · $840 · approved by <b>Augusto</b> · checking $3,400 → $2,560</p></div>
+    </div>
+    <figure>
+      <div class="shot"><img src="screenshots/ticket_101.png" alt="Dashboard showing ticket 101 resolved, agent cards, the activity feed, the draft to Tauhid, and the Boss's final call" loading="lazy"></div>
+      <figcaption>The board after the run and approval. <a href="screenshots/ticket_101.png" target="_blank" rel="noopener">Open full size</a></figcaption>
+    </figure>
+  </section>
+
+  <section class="ticket" id="t102">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Rent notice · Elm City Properties</p>
+        <h2>#102 · Rent due</h2>
+      </div>
+      <div class="pills"><span class="pill p-await">Boss: awaiting approval</span><span class="pill p-res">Resolved</span></div>
+    </div>
+    <p class="outcome">Facilities matched the notice to lease 1 ($2,400, due 2026-09-02). Accounting filed the rent with the cash math ($3,400 − $840 − $2,400 = $160). Augusto approved it, and the lease is now due 2026-10-02. The landlord confirmation draft says plainly that the payment hasn't been made yet.</p>
+    <div class="facts">
+      <div class="fact"><h4>Agents</h4><p>Boss → Facilities → Accounting · Boss → Accounting · Boss → Customer Service</p></div>
+      <div class="fact"><h4>Key tools</h4><p><code>check_lease_and_cash</code> <code>check_cash_position</code> <code>request_payment_approval</code> <code>save_customer_draft</code></p></div>
+      <div class="fact"><h4>Human approval</h4><p>Request #2 · $2,400 · approved by <b>Augusto</b> · checking $2,560 → $160</p></div>
+    </div>
+    <figure>
+      <div class="shot"><img src="screenshots/ticket_102.png" alt="Dashboard showing ticket 102 resolved, with the Facilities and Accounting reports and the landlord draft" loading="lazy"></div>
+      <figcaption>The board after the run and approval. <a href="screenshots/ticket_102.png" target="_blank" rel="noopener">Open full size</a></figcaption>
+    </figure>
+  </section>
+
+  <section class="ticket" id="t103">
+    <div class="head">
+      <div>
+        <p class="eyebrow">Discount request · Yale AI Club</p>
+        <h2>#103 · Bulk hoodie discount</h2>
+      </div>
+      <div class="pills"><span class="pill p-block">Boss: blocked</span><span class="pill p-res">Resolved</span></div>
+    </div>
+    <p class="outcome">Only 8 of 20 size-M hoodies are in stock. The Boss approved <b>10% off ($52.20)</b>, a 57.85% margin within policy, and offered the 8 now for $417.60. The 12-unit restock ($264) wasn't requested because only $160 cash remained. No payment, no PO, and no promised date for the rest.</p>
+    <div class="facts">
+      <div class="fact"><h4>Agents</h4><p>Boss → Inventory → Accounting · Boss → Accounting → Inventory · Boss → Customer Service</p></div>
+      <div class="fact"><h4>Key tools</h4><p><code>check_stock_and_pricing</code> <code>check_discount_margin ×3</code> <code>check_cash_position</code> <code>save_customer_draft</code></p></div>
+      <div class="fact"><h4>Human approval</h4><p>None needed. Nothing was filed, because cash ($160) was below the restock cost ($264).</p></div>
+    </div>
+    <figure>
+      <div class="shot"><img src="screenshots/ticket_103.png" alt="Dashboard showing ticket 103 resolved, with the discount margin checks and the quote draft to the Yale AI Club" loading="lazy"></div>
+      <figcaption>The board after the run, with checking at $160. <a href="screenshots/ticket_103.png" target="_blank" rel="noopener">Open full size</a></figcaption>
+    </figure>
+  </section>
+
+  <footer>Screenshots captured from the live dashboard (localhost:5173) after the official run · details in resolved_tickets.json and audit_trail.json</footer>
+</div>
+</body>
+</html>

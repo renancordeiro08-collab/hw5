@@ -1,0 +1,16 @@
+# secrets: never commit real keys (use .env.example)
+.env
+.env.local
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# node / vite
+frontend/node_modules/
+frontend/dist/
+
+# temp files
+*.tmp
+.DS_Store
